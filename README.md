@@ -68,6 +68,14 @@ We are actively developing core features and interfaces. Current goals include:
 
 ## ⚙️ Installation
 
+### Option 1: Install from PyPI (Recommended)
+
+```bash
+pip install haerae-evaluation-toolkit
+```
+
+### Option 2: Install from Source
+
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/HAE-RAE/haerae-evaluation-toolkit.git
