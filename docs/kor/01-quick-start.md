@@ -14,13 +14,26 @@ HRET 프레임워크는 기존 한국어 LLM 평가 방식이 일관되지 않�
 ---
 
 # 설치 (Installation)
+
+## 방법 1: PyPI에서 설치 (권장)
+
+가장 간단한 설치 방법은 PyPI를 통한 설치입니다:
+
+```bash
+pip install haerae-evaluation-toolkit
+```
+
+## 방법 2: 소스에서 설치
+
+소스에서 설치하거나 프로젝트에 기여하고 싶다면 다음 단계를 따르세요:
+
 파이썬(python >= 3.10) 가상환경 구축 후 설치를 권장합니다.
 다음과 같은 과정을 통해 실행 환경을 구축할 수 있습니다.
 - 가상환경 구축 (Conda 또는 Venv)
 - git clone 명령어로 HRET GitHub 프로젝트를 로컬에 복사해오기
 - 요구 패키지 설치
 
-## Conda 가상환경 (Virtual Environment) 구현 예시
+### Conda 가상환경 (Virtual Environment) 구현 예시
 [1] 아나콘다 설치 https://www.anaconda.com/download
    (다운로드 페이지 우측 하단의 skip registration으로 가입없이 설치 가능)
 

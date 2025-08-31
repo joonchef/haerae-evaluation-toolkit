@@ -16,13 +16,25 @@ The HRET framework addresses inconsistencies in existing Korean LLM evaluation m
 
 # Installation
 
+## Option 1: Install from PyPI (Recommended)
+
+The easiest way to install HRET is via PyPI:
+
+```bash
+pip install haerae-evaluation-toolkit
+```
+
+## Option 2: Install from Source
+
+If you want to install from source or contribute to the project, follow these steps:
+
 It is recommended to create and activate a Python (≥3.10) virtual environment before installing. The following steps outline the setup process:
 
 1. Create and activate a virtual environment (Conda or venv)
 2. Clone the HRET GitHub repository
 3. Install required packages
 
-## Example: Conda Environment
+### Example: Conda Environment
 
 1. Download and install Anaconda: [https://www.anaconda.com/download](https://www.anaconda.com/download) (click “skip registration” to install without signing up)
 2. Open the Anaconda Prompt
