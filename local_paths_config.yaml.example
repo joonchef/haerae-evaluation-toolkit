@@ -1,0 +1,75 @@
+# 로컬 경로 매핑 설정 파일 예시
+# 이 파일을 local_paths_config.yaml로 복사하고 경로를 수정하세요.
+#
+# 사용 방법:
+# 1. 이 파일을 local_paths_config.yaml로 복사
+# 2. 실제 로컬 경로로 수정
+# 3. 환경변수 설정 (선택사항):
+#    - HRET_LOCAL_PATHS_CONFIG: 설정 파일 경로
+#    - HRET_MODELS_ROOT: 모델 루트 디렉토리
+#    - HRET_DATASETS_ROOT: 데이터셋 루트 디렉토리
+
+# 모델 경로 매핑
+# Hugging Face 모델 ID -> 로컬 경로
+models:
+  # GPT 계열 모델
+  "gpt2": "/path/to/local/models/gpt2"
+  "gpt2-medium": "/path/to/local/models/gpt2-medium"
+  "gpt2-large": "/path/to/local/models/gpt2-large"
+  
+  # 한국어 모델
+  "EleutherAI/polyglot-ko-1.3b": "/path/to/local/models/polyglot-ko-1.3b"
+  "EleutherAI/polyglot-ko-3.8b": "/path/to/local/models/polyglot-ko-3.8b"
+  "EleutherAI/polyglot-ko-5.8b": "/path/to/local/models/polyglot-ko-5.8b"
+  "EleutherAI/polyglot-ko-12.8b": "/path/to/local/models/polyglot-ko-12.8b"
+  
+  # KoGPT 모델
+  "kakaobrain/kogpt": "/path/to/local/models/kogpt"
+  
+  # SOLAR 모델
+  "upstage/SOLAR-10.7B-v1.0": "/path/to/local/models/SOLAR-10.7B-v1.0"
+  
+  # Llama 계열 모델
+  "meta-llama/Llama-2-7b-hf": "/path/to/local/models/Llama-2-7b-hf"
+  "meta-llama/Llama-2-13b-hf": "/path/to/local/models/Llama-2-13b-hf"
+  "meta-llama/Llama-2-70b-hf": "/path/to/local/models/Llama-2-70b-hf"
+  
+  # 심사 모델 (Judge models)
+  "kaist-ai/prometheus-13b-v1.0": "/path/to/local/models/prometheus-13b-v1.0"
+  "NCSOFT/Llama-3-OffsetBias-8B": "/path/to/local/models/Llama-3-OffsetBias-8B"
+  
+  # 상대 경로도 사용 가능 (HRET_MODELS_ROOT 환경변수 기준)
+  # "some/model": "relative/path/to/model"
+
+# 데이터셋 경로 매핑
+# Hugging Face 데이터셋 ID -> 로컬 경로
+datasets:
+  # HAE-RAE 벤치마크
+  "HAERAE-HUB/KMMLU": "/path/to/local/datasets/KMMLU"
+  "HAERAE-HUB/HAE_RAE_BENCH_1.1": "/path/to/local/datasets/HAE_RAE_BENCH_1.1"
+  "HAERAE-HUB/KoBEST": "/path/to/local/datasets/KoBEST"
+  
+  # 의료 데이터셋
+  "sean0042/KorMedMCQA": "/path/to/local/datasets/KorMedMCQA"
+  
+  # CLIcK 데이터셋
+  "HAERAE-HUB/CLIcK": "/path/to/local/datasets/CLIcK"
+  
+  # 기타 한국어 데이터셋
+  "HAERAE-HUB/Korean-Truthful-QA": "/path/to/local/datasets/Korean-Truthful-QA"
+  "HAERAE-HUB/Korean-HellaSwag": "/path/to/local/datasets/Korean-HellaSwag"
+  "HAERAE-HUB/Korean-Common-Gen-V2": "/path/to/local/datasets/Korean-Common-Gen-V2"
+  
+  # 상대 경로도 사용 가능 (HRET_DATASETS_ROOT 환경변수 기준)
+  # "some/dataset": "relative/path/to/dataset"
+
+# 추가 설정 (선택사항)
+settings:
+  # 로컬 경로가 없을 때 온라인으로 폴백할지 여부
+  fallback_to_online: true
+  
+  # 로깅 레벨 (DEBUG, INFO, WARNING, ERROR)
+  log_level: "INFO"
+  
+  # 캐시 디렉토리 (Hugging Face 캐시와 별도)
+  cache_dir: "~/.cache/hret"

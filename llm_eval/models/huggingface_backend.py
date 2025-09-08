@@ -10,7 +10,8 @@ from tqdm import tqdm
 from .base import BaseModel 
 from . import register_model
 from llm_eval.utils.logging import get_logger 
-from llm_eval.utils.prompt_template import default_cot_parser 
+from llm_eval.utils.prompt_template import default_cot_parser
+from llm_eval.utils.path_resolver import path_resolver 
 
 logger = get_logger(name="huggingface", level=logging.INFO)
 
@@ -67,9 +68,14 @@ class HuggingFaceModel(BaseModel):
         # Call parent class constructor to initialize base attributes
         super().__init__(**kwargs)
         
+        # 로컬 경로로 변환 시도
+        resolved_model_path = path_resolver.resolve_model_path(model_name_or_path)
+        if resolved_model_path != model_name_or_path:
+            logger.info(f"[HuggingFaceModel] 모델 경로 변환: {model_name_or_path} -> {resolved_model_path}")
+        
         # Extract model name from model ID
         self.model_name = f"huggingface:{model_name_or_path}"
-        logger.info(f"[HuggingFaceModel] Initializing with model: {model_name_or_path}")
+        logger.info(f"[HuggingFaceModel] Initializing with model: {resolved_model_path}")
 
         # Dtype setup
         if dtype == "auto":
@@ -88,7 +94,9 @@ class HuggingFaceModel(BaseModel):
         self.is_model_distributed = False
 
         # Load tokenizer
-        _tokenizer_path = tokenizer_id_or_path if tokenizer_id_or_path else model_name_or_path
+        _tokenizer_path = tokenizer_id_or_path if tokenizer_id_or_path else resolved_model_path
+        # 토크나이저 경로도 변환 시도
+        _tokenizer_path = path_resolver.resolve_model_path(_tokenizer_path)
         self.tokenizer = AutoTokenizer.from_pretrained(_tokenizer_path, padding_side="left")
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -96,11 +104,11 @@ class HuggingFaceModel(BaseModel):
 
 
         # Load model
-        logger.info(f"[HuggingFaceModel] Loading model from {model_name_or_path} with dtype: {torch_dtype}")
+        logger.info(f"[HuggingFaceModel] Loading model from {resolved_model_path} with dtype: {torch_dtype}")
         if device == "map":
             logger.info("[HuggingFaceModel] Using device_map='auto' for model loading.")
             self.model = AutoModelForCausalLM.from_pretrained(
-                model_name_or_path,
+                resolved_model_path,
                 device_map="auto",
                 torch_dtype=torch_dtype,
                 **kwargs.get("model_kwargs", {}) # Pass other model specific kwargs
@@ -113,7 +121,7 @@ class HuggingFaceModel(BaseModel):
             logger.info(f"[HuggingFaceModel] Model distributed. Main device (first shard): {self.device}")
         else:
             self.model = AutoModelForCausalLM.from_pretrained(
-                model_name_or_path,
+                resolved_model_path,
                 torch_dtype=torch_dtype,
                 **kwargs.get("model_kwargs", {}) # Pass other model specific kwargs
             )

@@ -2,6 +2,7 @@ from typing import List, Dict, Any, Optional, Union
 from datasets import load_dataset
 from .base import BaseDataset
 from . import register_dataset
+from llm_eval.utils.path_resolver import path_resolver
 
 @register_dataset("haerae_bench")
 class HaeraeDataset(BaseDataset):
@@ -69,12 +70,15 @@ class HaeraeDataset(BaseDataset):
                 'reading_comprehension'
             ]
 
+        # 데이터셋 경로를 로컬 경로로 변환 시도
+        resolved_dataset_path = path_resolver.resolve_dataset_path(self.dataset_name)
+        
         if isinstance(self.subset, list):
             # In the case of multiple subsets
             all_items = []
             for sub in self.subset:
                 partial_data = load_dataset(
-                    self.dataset_name,
+                    resolved_dataset_path,
                     sub,
                     split=self.split,
                     **self.kwargs
@@ -84,7 +88,7 @@ class HaeraeDataset(BaseDataset):
 
         else:  # If subset is a single string
             raw_data = load_dataset(
-                self.dataset_name,
+                resolved_dataset_path,
                 self.subset,
                 split=self.split,
                 **self.kwargs

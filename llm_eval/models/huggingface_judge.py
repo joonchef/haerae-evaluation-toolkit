@@ -11,6 +11,7 @@ from . import register_model
 from tqdm import tqdm
 
 from llm_eval.utils.logging import get_logger
+from llm_eval.utils.path_resolver import path_resolver
 
 logger = get_logger(name="huggingface_judge", level=logging.INFO)
 
@@ -55,7 +56,13 @@ class HuggingFaceJudge(BaseJudge):
             **kwargs: Additional parameters (ignored or for extension).
         """
         super().__init__(**kwargs)
-        logger.info(f"[HuggingFaceJudge] Initializing with model: {model_name_or_path}")
+        
+        # 로컬 경로로 변환 시도
+        resolved_model_path = path_resolver.resolve_model_path(model_name_or_path)
+        if resolved_model_path != model_name_or_path:
+            logger.info(f"[HuggingFaceJudge] 모델 경로 변환: {model_name_or_path} -> {resolved_model_path}")
+        
+        logger.info(f"[HuggingFaceJudge] Initializing with model: {resolved_model_path}")
 
         # Update auth token parameter if it exists
         if "use_auth_token" in kwargs:
@@ -63,7 +70,7 @@ class HuggingFaceJudge(BaseJudge):
 
         # Load tokenizer with correct padding settings for decoder-only models
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name_or_path,
+            resolved_model_path,
             padding_side="left",
             truncation_side="left",
             **kwargs
@@ -78,7 +85,7 @@ class HuggingFaceJudge(BaseJudge):
                 self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         
         # Ensure model knows about pad token
-        self.model = AutoModelForCausalLM.from_pretrained(model_name_or_path, **kwargs)
+        self.model = AutoModelForCausalLM.from_pretrained(resolved_model_path, **kwargs)
         if self.model.config.pad_token_id is None:
             self.model.config.pad_token_id = self.tokenizer.pad_token_id
         

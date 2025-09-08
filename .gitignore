@@ -10,3 +10,15 @@ __pycache__/
 *.pyc
 *.pyo
 .openhands/
+
+# Local model and dataset storage (ignore contents but keep folders)
+/models/*
+!/models/.gitkeep
+/datasets/*
+!/datasets/.gitkeep
+
+# User-specific configuration
+local_paths_config.yaml
+
+# Evaluation results
+results*.json

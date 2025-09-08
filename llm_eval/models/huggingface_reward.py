@@ -7,6 +7,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from llm_eval.models.base import BaseRewardModel
 from . import register_model
 from llm_eval.utils.logging import get_logger
+from llm_eval.utils.path_resolver import path_resolver
 
 logger = get_logger(name="huggingface_reward", level=logging.INFO)
 
@@ -34,9 +35,15 @@ class HuggingFaceReward(BaseRewardModel):
             **kwargs: Additional arguments as needed.
         """
         super().__init__(**kwargs)
+        
+        # 로컬 경로로 변환 시도
+        resolved_model_path = path_resolver.resolve_model_path(model_name_or_path)
+        if resolved_model_path != model_name_or_path:
+            logger.info(f"[HuggingFaceReward] 모델 경로 변환: {model_name_or_path} -> {resolved_model_path}")
+        
         self.device = device
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-        self.model = AutoModelForCausalLM.from_pretrained(model_name_or_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(resolved_model_path)
+        self.model = AutoModelForCausalLM.from_pretrained(resolved_model_path)
         self.model.eval()
         if device != "cpu":
             self.model.to(device)
