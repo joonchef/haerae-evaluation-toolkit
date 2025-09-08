@@ -16,6 +16,7 @@ __pycache__/
 !/models/.gitkeep
 /datasets/*
 !/datasets/.gitkeep
+!/datasets/KMMLU/
 
 # User-specific configuration
 local_paths_config.yaml

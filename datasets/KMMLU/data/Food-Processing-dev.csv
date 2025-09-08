@@ -1,0 +1,6 @@
+question,answer,A,B,C,D,Category,Human Accuracy
+작물이 주로 이용하는 토양수분의 형태는?,2,흡습수,모관수,중력수,지하수,Food Processing,0.9043
+신품종의 구비조건으로 틀린 것은?,2,구별성,독립성,균일성,안정성,Food Processing,0.8
+씨감자의 병리적 퇴화의 주요 원인은?,3,효소의 활력저하,비료 부족,바이러스 감염,이형 종자의 기계적 혼입,Food Processing,0.7733
+기상생태형으로 분류할 때 우리나라 벼의 조생종은 어디에 속하는가?,4,Blt형,bLt형,BLt형,blT형,Food Processing,0.7143
+괴경으로 번식하는 작물은?,3,생강,마늘,감자,고구마,Food Processing,0.75

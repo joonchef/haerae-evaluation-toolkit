@@ -1,0 +1,6 @@
+question,answer,A,B,C,D,Category,Human Accuracy
+주파수 대역에 따른 RFID 특징 중 틀린 것은?,4,UHF대역 : 900㎒ 대역과 433㎒ 대역이 사용됨,13.56㎒ : ISM 밴드 대역으로 UHF대역보다 인식거리가 짧음,2.45㎓ : 능동형과 수동형의 두 가지 형태가 사용됨,135㎑ 미만 : 자기장이 아닌 전기장 결합으로 동작함,Telecommunications and Wireless Technology,0.381
+현재 국내에서 항만 지역에만 제한적으로 사용되는 반능동형 RFID 시스템의 주파수 대역은?,1,433㎒ 대역,900㎒ 대역,13.56㎒ 대역,2.45㎓ 대역,Telecommunications and Wireless Technology,0.6087
+"리더의 안테나 출력이 0.5W라고 할 때 dBm의 환산 값은? (단,log105≒ 0.7)",3,0.7 dBm,-7 dBm,27 dBm,37 dBm,Telecommunications and Wireless Technology,0.4
+후방 산란(back-scattering) 방식에 대한 설명으로 틀린 것은?,2,리더와 태그는 전자파 결합 방식이다.,안테나를 통한 원거리장에서의 전자기파에 의해 이루어지므로 원거리장 조건인 λ/2π보다 가까운 거리에서 이루어진다.,UHF 수동태그에서 이용한다.,태그의 레이더 단면적(RCS: radar cross section)을 변화시키는 방식이다.,Telecommunications and Wireless Technology,0.4211
+전자파가 자유공간을 진행할 때 거리와 전력 밀도와의 관계는?,4,거리가 2배가 되면 전력 밀도도 2배가 된다.,거리가 2배가 되면 전력 밀도는 1/2배가 된다.,거리가 2배가 되면 전력 밀도는 4배가 된다.,거리가 2배가 되면 전력 밀도는 1/4배가 된다.,Telecommunications and Wireless Technology,0.5263

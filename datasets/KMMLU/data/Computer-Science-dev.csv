@@ -1,0 +1,6 @@
+question,answer,A,B,C,D,Category,Human Accuracy
+암호 프로토콜 서비스에 대한 설명 중 옳지 않은 것은?,2,비밀성 : 자료 유출의 방지,접근제어 : 프로토콜 데이터 부분의 접근 제어,무결성 : 메시지의 변조를 방지,부인봉쇄 : 송수신 사실의 부정 방지,Computer Science,0.0
+보안 OS(Secure OS)에 대한 설명 중 가장 옳지 않은 것은?,2,"D1급은 보안에 대한 기능이 없는 것으로, MS-DOS 등이 이에 해당한다.","C1급은 사용자의 접근제어, Auditing, Shadow Password 등의 부가적인 기능이 제공된다.","B급의 보안OS는 다단계 보안을 제공하며, 필수적인 접근제어 등이 제공된다.",A급은 검증된 설계 수준으로서 수학적인 검증 과정이 요구된다.,Computer Science,0.0
+인터넷상에서 시스템 보안 문제는 중요한 부분이다. 보안이 필요한 네트워크 통로를 단일화하여 이 출구를 보안 관리함으로써 외부로부터의 불법적인 접근을 막는 시스템은?,4,해킹,펌웨어,크래킹,방화벽,Computer Science,0.0
+"인터넷에서 일어날 수 있는 대표적인 보안사고 유형으로 어떤 침입 행위를 시도하기 위해 일정기간 위장한 상태를 유지하며, 코드 형태로 시스템의 특정 프로그램 내부에 존재 하는 것은?",3,논리 폭탄,웜,트로이 목마,잠입,Computer Science,0.0
+DNS(Domain Name System) 서버 종류에 속하지 않는 것은?,3,Primary Server,Cache Server,Expert Server,Master Name Server,Computer Science,0.0

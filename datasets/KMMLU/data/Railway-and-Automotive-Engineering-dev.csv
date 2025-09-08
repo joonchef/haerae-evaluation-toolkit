@@ -1,0 +1,6 @@
+question,answer,A,B,C,D,Category,Human Accuracy
+경유를 사용하는 자동차에서 배출되는 오염물질과 가장 거리가 먼 것은?,2,매연,알데히드,입자상물질,질소산화물,Railway and Automotive Engineering,0.8247
+믹서 방식의 LPG엔진과 비교한 LPI엔진의 장점으로 틀린 것은?,1,연료의 보관성 향상,역화 발생 문제 개선,겨울철 냉간 시동성 향상,정밀한 공연비 제어로 연비 향상,Railway and Automotive Engineering,0.8297
+"실린더 지름과 행정이 70×70㎜이고, 회전속도가 3000rpm인 기관의 밸브 지름은 약 몇 ㎜ 인가? (단, 밸브를 통과하는 가스의 속도는 50m/sec이다.)",2,12.2,26.2,32.5,46.5,Railway and Automotive Engineering,0.4977
+"행정 체적이 800cc, 크랭크축 회전수 1000rpm, 체적효율 80%, 2행정 사이클 기관의 흡기중량 유량은 몇 g/s인가? (단, 흡기의 비중량은 1.25kg/m3이다.)",2,11.67,13.33,16.67,20.33,Railway and Automotive Engineering,0.5
+유체 커플링식 냉각 팬에 대한 설명으로 틀린 것은?,1,라디에이터 앞쪽에 설치,물 펌프축과 일체로 회전,라디에이터 통풍을 도와줌,기관의 과냉 및 소음방지를 위해 일정 회전수이상 시 슬립 발생,Railway and Automotive Engineering,0.6805

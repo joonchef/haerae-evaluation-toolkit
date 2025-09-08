@@ -1,0 +1,6 @@
+question,answer,A,B,C,D,Category,Human Accuracy
+수평 등속도로 비행하는 항공기에 작용하는 공기력에 대한 설명으로 옳은것은?,2,추력이 항력보다 크다.,추력과 항력은 같다.,양력이 비행기의 무게보다 크다.,양력이 비행기의 무게보다 작다.,Aviation Engineering and Maintenance,0.8356
+헬리콥터 비행시 역풍지역이 가장 커지게 되는 비행 상태는?,4,정지비행,상승가속비행,자동회전비행,전진가속비행,Aviation Engineering and Maintenance,0.6892
+"A,B,C 3대의 비행기가 각각 10000m, 5000m, 1000m 의 고도에서 동일한 속도로 비행하고 있다. 각 비행기의 마하계가 지시하는 마하수의 크기를 비교한 것으로 옳은 것은?",2,A < B < C,A > B > C,A > C > B,A = B = C,Aviation Engineering and Maintenance,0.75
+비행기 날개의 양력에 관한 설명으로 틀린 것은?,3,양력은 날개 면적에 비례한다.,양력은 유체의 밀도에 비례한다.,양력은 날개의 무게에 비례한다.,양력은 비행기 속도제곱에 비례한다.,Aviation Engineering and Maintenance,0.6
+항공기 날개에 쳐든각을 주는 주된 목적은?,4,선회성능을 좋게 하기 위해서,날개저항을 적게 하기 위해서,날개끝 실속을 방지하기 위해서,옆놀이의 안정성 향상을 위해서,Aviation Engineering and Maintenance,0.6944
