@@ -31,7 +31,7 @@ case $choice in
         echo -e "\n${GREEN}빠른 테스트 모드${NC}"
         SUBSET="Accounting"
         NUM_SAMPLES=5
-        EVAL_CMD="python llm_eval/evaluator.py \
+        EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             --subset $SUBSET \
@@ -46,7 +46,7 @@ case $choice in
         echo "Accounting, Biology, Chemistry, Computer-Science, Economics,"
         echo "Education, Law, Math, Psychology, Korean-History 등"
         read -p "평가할 subset 이름 입력: " SUBSET
-        EVAL_CMD="python llm_eval/evaluator.py \
+        EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             --subset $SUBSET \
@@ -63,7 +63,7 @@ case $choice in
             echo "평가 취소됨"
             exit 0
         fi
-        EVAL_CMD="python llm_eval/evaluator.py \
+        EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             --split $SPLIT \
@@ -96,7 +96,7 @@ case $choice in
             SUBSET_ARG="--subset $custom_subset"
         fi
         
-        EVAL_CMD="python llm_eval/evaluator.py \
+        EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             $SUBSET_ARG \
@@ -113,6 +113,9 @@ esac
 
 # 환경 변수 설정 (로컬 경로 설정 파일 사용)
 export HRET_LOCAL_PATHS_CONFIG="local_paths_config.yaml"
+
+# 프로젝트 루트 디렉토리를 PYTHONPATH에 추가
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
 # 평가 실행
 echo -e "\n${GREEN}평가 실행 중...${NC}"

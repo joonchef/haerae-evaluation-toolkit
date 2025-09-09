@@ -24,8 +24,11 @@ echo -e "샘플 수: ${YELLOW}$NUM_SAMPLES${NC}"
 echo -e "디바이스: ${YELLOW}$DEVICE${NC}"
 echo ""
 
+# 프로젝트 루트 디렉토리를 PYTHONPATH에 추가
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+
 # 평가 실행
-python llm_eval/evaluator.py \
+python -m llm_eval.evaluator \
     --model huggingface \
     --dataset kmmlu \
     --subset "$SUBSET" \
