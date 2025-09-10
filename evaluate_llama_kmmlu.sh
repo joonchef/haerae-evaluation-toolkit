@@ -31,13 +31,24 @@ case $choice in
         echo -e "\n${GREEN}빠른 테스트 모드${NC}"
         SUBSET="Accounting"
         NUM_SAMPLES=5
+        read -p "Few-shot 개수 (0-10, 기본: 0): " num_few_shot
+        num_few_shot=${num_few_shot:-0}
+        
+        # Few-shot 파라미터 설정
+        if [ "$num_few_shot" -gt 0 ]; then
+            DATASET_PARAMS="{\"num_samples\": $NUM_SAMPLES, \"num_few_shot\": $num_few_shot, \"few_shot_split\": \"dev\"}"
+            echo -e "${YELLOW}$num_few_shot-shot 설정으로 평가합니다.${NC}"
+        else
+            DATASET_PARAMS="{\"num_samples\": $NUM_SAMPLES}"
+        fi
+        
         EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             --subset $SUBSET \
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": 128}' \
-            --dataset_params '{\"num_samples\": $NUM_SAMPLES}' \
+            --dataset_params '$DATASET_PARAMS' \
             --evaluation_method string_match \
             --output_file $OUTPUT_FILE"
         ;;
@@ -46,28 +57,54 @@ case $choice in
         echo "Accounting, Biology, Chemistry, Computer-Science, Economics,"
         echo "Education, Law, Math, Psychology, Korean-History 등"
         read -p "평가할 subset 이름 입력: " SUBSET
+        read -p "Few-shot 개수 (0-10, 기본: 5, 논문 설정): " num_few_shot
+        num_few_shot=${num_few_shot:-5}
+        
+        # Few-shot 파라미터 설정
+        if [ "$num_few_shot" -gt 0 ]; then
+            DATASET_PARAMS="{\"num_few_shot\": $num_few_shot, \"few_shot_split\": \"dev\"}"
+            echo -e "${YELLOW}$num_few_shot-shot 설정으로 평가합니다.${NC}"
+            DATASET_PARAMS_ARG="--dataset_params '$DATASET_PARAMS'"
+        else
+            DATASET_PARAMS_ARG=""
+        fi
+        
         EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             --subset $SUBSET \
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": 256}' \
+            $DATASET_PARAMS_ARG \
             --evaluation_method string_match \
             --output_file $OUTPUT_FILE"
         ;;
     3)
         echo -e "\n${GREEN}전체 KMMLU 평가 (45개 subset)${NC}"
         echo -e "${YELLOW}경고: 시간이 오래 걸릴 수 있습니다!${NC}"
+        read -p "Few-shot 개수 (0-10, 기본: 5, 논문 설정): " num_few_shot
+        num_few_shot=${num_few_shot:-5}
         read -p "계속하시겠습니까? (y/n): " confirm
         if [ "$confirm" != "y" ]; then
             echo "평가 취소됨"
             exit 0
         fi
+        
+        # Few-shot 파라미터 설정
+        if [ "$num_few_shot" -gt 0 ]; then
+            DATASET_PARAMS="{\"num_few_shot\": $num_few_shot, \"few_shot_split\": \"dev\"}"
+            echo -e "${YELLOW}$num_few_shot-shot 설정으로 전체 KMMLU를 평가합니다.${NC}"
+            DATASET_PARAMS_ARG="--dataset_params '$DATASET_PARAMS'"
+        else
+            DATASET_PARAMS_ARG=""
+        fi
+        
         EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": 256, \"batch_size\": 4}' \
+            $DATASET_PARAMS_ARG \
             --evaluation_method string_match \
             --output_file $OUTPUT_FILE"
         ;;
@@ -85,6 +122,12 @@ case $choice in
         read -p "최대 토큰 수 (기본: 256): " max_tokens
         max_tokens=${max_tokens:-256}
         
+        read -p "Few-shot 개수 (0-10, 기본: 5): " num_few_shot
+        num_few_shot=${num_few_shot:-5}
+        
+        read -p "Few-shot split (train/dev/test, 기본: dev): " few_shot_split
+        few_shot_split=${few_shot_split:-dev}
+        
         read -p "평가 방법 (string_match/partial_match/llm_judge, 기본: string_match): " eval_method
         eval_method=${eval_method:-string_match}
         
@@ -96,12 +139,22 @@ case $choice in
             SUBSET_ARG="--subset $custom_subset"
         fi
         
+        # Few-shot 파라미터 설정
+        if [ "$num_few_shot" -gt 0 ]; then
+            DATASET_PARAMS="{\"num_few_shot\": $num_few_shot, \"few_shot_split\": \"$few_shot_split\"}"
+            echo -e "${YELLOW}$num_few_shot-shot 설정 (split: $few_shot_split)으로 평가합니다.${NC}"
+            DATASET_PARAMS_ARG="--dataset_params '$DATASET_PARAMS'"
+        else
+            DATASET_PARAMS_ARG=""
+        fi
+        
         EVAL_CMD="python -m llm_eval.evaluator \
             --model huggingface \
             --dataset $DATASET \
             $SUBSET_ARG \
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": $max_tokens, \"batch_size\": $batch_size}' \
+            $DATASET_PARAMS_ARG \
             --evaluation_method $eval_method \
             --output_file $OUTPUT_FILE"
         ;;
