@@ -1,0 +1,44 @@
+# 줄바꿈 문자 설정
+* text=auto
+
+# Shell 스크립트는 항상 LF 사용
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Batch 파일은 CRLF 사용
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Python 파일은 LF 사용
+*.py text eol=lf
+
+# 설정 파일들
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+
+# 문서 파일
+*.md text eol=lf
+*.txt text eol=lf
+*.rst text eol=lf
+
+# 바이너리 파일들
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.pkl binary
+*.pickle binary
+*.npy binary
+*.npz binary
+*.pt binary
+*.pth binary
+*.h5 binary
+*.hdf5 binary
+*.safetensors binary
+*.onnx binary
