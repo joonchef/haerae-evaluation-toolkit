@@ -35,11 +35,13 @@ case $choice in
         num_few_shot=${num_few_shot:-0}
         
         # Few-shot 파라미터 설정
+        DATASET_PARAMS="{\"num_samples\": $NUM_SAMPLES}"
+        
         if [ "$num_few_shot" -gt 0 ]; then
-            DATASET_PARAMS="{\"num_samples\": $NUM_SAMPLES, \"num_few_shot\": $num_few_shot, \"few_shot_split\": \"dev\"}"
             echo -e "${YELLOW}$num_few_shot-shot 설정으로 평가합니다.${NC}"
+            FEW_SHOT_ARGS="--num_few_shot $num_few_shot --few_shot_split dev"
         else
-            DATASET_PARAMS="{\"num_samples\": $NUM_SAMPLES}"
+            FEW_SHOT_ARGS=""
         fi
         
         EVAL_CMD="python -m llm_eval.evaluator \
@@ -49,6 +51,7 @@ case $choice in
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": 128}' \
             --dataset_params '$DATASET_PARAMS' \
+            $FEW_SHOT_ARGS \
             --evaluation_method string_match \
             --output_file $OUTPUT_FILE"
         ;;
@@ -62,11 +65,10 @@ case $choice in
         
         # Few-shot 파라미터 설정
         if [ "$num_few_shot" -gt 0 ]; then
-            DATASET_PARAMS="{\"num_few_shot\": $num_few_shot, \"few_shot_split\": \"dev\"}"
             echo -e "${YELLOW}$num_few_shot-shot 설정으로 평가합니다.${NC}"
-            DATASET_PARAMS_ARG="--dataset_params '$DATASET_PARAMS'"
+            FEW_SHOT_ARGS="--num_few_shot $num_few_shot --few_shot_split dev"
         else
-            DATASET_PARAMS_ARG=""
+            FEW_SHOT_ARGS=""
         fi
         
         EVAL_CMD="python -m llm_eval.evaluator \
@@ -75,7 +77,7 @@ case $choice in
             --subset $SUBSET \
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": 256}' \
-            $DATASET_PARAMS_ARG \
+            $FEW_SHOT_ARGS \
             --evaluation_method string_match \
             --output_file $OUTPUT_FILE"
         ;;
@@ -92,11 +94,10 @@ case $choice in
         
         # Few-shot 파라미터 설정
         if [ "$num_few_shot" -gt 0 ]; then
-            DATASET_PARAMS="{\"num_few_shot\": $num_few_shot, \"few_shot_split\": \"dev\"}"
             echo -e "${YELLOW}$num_few_shot-shot 설정으로 전체 KMMLU를 평가합니다.${NC}"
-            DATASET_PARAMS_ARG="--dataset_params '$DATASET_PARAMS'"
+            FEW_SHOT_ARGS="--num_few_shot $num_few_shot --few_shot_split dev"
         else
-            DATASET_PARAMS_ARG=""
+            FEW_SHOT_ARGS=""
         fi
         
         EVAL_CMD="python -m llm_eval.evaluator \
@@ -104,7 +105,7 @@ case $choice in
             --dataset $DATASET \
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": 256, \"batch_size\": 4}' \
-            $DATASET_PARAMS_ARG \
+            $FEW_SHOT_ARGS \
             --evaluation_method string_match \
             --output_file $OUTPUT_FILE"
         ;;
@@ -141,11 +142,10 @@ case $choice in
         
         # Few-shot 파라미터 설정
         if [ "$num_few_shot" -gt 0 ]; then
-            DATASET_PARAMS="{\"num_few_shot\": $num_few_shot, \"few_shot_split\": \"$few_shot_split\"}"
             echo -e "${YELLOW}$num_few_shot-shot 설정 (split: $few_shot_split)으로 평가합니다.${NC}"
-            DATASET_PARAMS_ARG="--dataset_params '$DATASET_PARAMS'"
+            FEW_SHOT_ARGS="--num_few_shot $num_few_shot --few_shot_split $few_shot_split"
         else
-            DATASET_PARAMS_ARG=""
+            FEW_SHOT_ARGS=""
         fi
         
         EVAL_CMD="python -m llm_eval.evaluator \
@@ -154,7 +154,7 @@ case $choice in
             $SUBSET_ARG \
             --split $SPLIT \
             --model_params '{\"model_name_or_path\": \"$MODEL_PATH\", \"device\": \"$DEVICE\", \"max_new_tokens\": $max_tokens, \"batch_size\": $batch_size}' \
-            $DATASET_PARAMS_ARG \
+            $FEW_SHOT_ARGS \
             --evaluation_method $eval_method \
             --output_file $OUTPUT_FILE"
         ;;
